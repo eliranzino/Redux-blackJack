@@ -6,24 +6,30 @@ import { Action } from '../Action/Action';
 
 class _Game extends React.Component {
     render() {
-        const { playerScore, dealerScore } = this.props;
+        let message = "";
+        const { playerScore, dealerScore, winner, playerCards, dealerCards } = this.props;
+        console.log(playerCards, dealerCards)
+
+
         if(playerScore===21){
-        return <div>PLAYER WIN, HE GOT {playerScore}</div>
+        message= <div>PLAYER WIN, HE GOT {playerScore}</div>
         }else if(dealerScore===21){
-        return <div>DEALER WIN WITH {dealerScore}</div>
+        message= <div>DEALER WIN WITH {dealerScore}</div>
         }else if (playerScore>21){
-        return <div>DEALER WIN because player got {playerScore} total</div>
+        message= <div>DEALER WIN because player got {playerScore} total</div>
         }else if(dealerScore>21){
-            return <div>PLAYER WIN because dealer got {dealerScore} total</div>
+        message= <div>PLAYER WIN because dealer got {dealerScore} total</div>
         }else if(dealerScore>=17){
-            return <div>GAME OVER, dealer with {dealerScore} points and player with {playerScore} points</div>
+        message= <div>GAME OVER, dealer with {dealerScore} points and player with {playerScore} points</div>
         }
 
         return (
             <div>
+                <div>{message}</div>
                 <h1>Black Jack!♣♠</h1>
                <div>Player Score: {playerScore}</div>
                <div>Dealer Score: {dealerScore}</div>
+               <div>And the winner is: {winner} </div>
                <Action/>
             </div>
         )
@@ -39,7 +45,10 @@ const mapStateToProps = (state) => {
     return {
         playerScore: state.playerScore,
         dealerScore: state.dealerScore,
-        isDealerActive:state.isDealerActive
+        isDealerActive:state.isDealerActive,
+        winner:state.winner,
+        playerCards: state.playerCards,
+        dealerCards: state.dealerCards,
     };
 }
 
